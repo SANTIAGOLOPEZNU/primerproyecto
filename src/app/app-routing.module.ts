@@ -7,7 +7,9 @@ const routes: Routes = [
   {
     path:"",component:InicioComponent
   },
-  //ruta que nos vincula el modulo de inicio y todo su contenido 
+  //ruta perezosa: ruta que nos vincula el modulo de inicio y todo su contenido 
+  //loadchildren: indica que habra ruta hija
+  //.then: funcion asintronica tipo PROMESA
   {
     path:"",loadChildren:()=>import('./modules/inicio//inicio.module').then(m=>m.InicioModule)
   }
