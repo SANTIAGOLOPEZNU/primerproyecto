@@ -25,7 +25,7 @@ export class CardComponent {
       {
         id: "",
         nombre: "el primo",
-        imagen: "https://static.wikia.nocookie.net/brawlstars/images/0/04/El_Primo_Skin-Default.png/revision/latest?cb=20191108132435&path-prefix=es",
+        imagen: "https://www.brawlstarsdicas.com.br/wp-content/uploads/2019/09/como-jogar-com-el-primo-braw-stars-dicas.png",
         rareza: "especial",
         tipo: "tanque",
         alcanze: "bajo",
@@ -33,7 +33,7 @@ export class CardComponent {
       {
         id: "",
         nombre: "edgar",
-        imagen: "https://static.wikia.nocookie.net/brawlstars/images/2/2b/Edgar_Skin-Default.png/revision/latest?cb=20210111155348&path-prefix=es",
+        imagen: "https://media.brawltime.ninja/brawlers/edgar/skins/skin/blackbird.png?size=400",
         rareza: "epico",
         tipo: "asesino",
         alcanze: "bajo",
