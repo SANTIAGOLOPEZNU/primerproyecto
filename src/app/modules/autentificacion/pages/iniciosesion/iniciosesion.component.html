@@ -1,37 +1,46 @@
 <div class="container">
     <div class="row">
-        <i class="material-icons" style="font-size: 200px;">person</i>
+        <i class="material-icons">person</i>
+
+        <!--uid de usuario-->
+        <div >
+            <mat-form-field appearance="fill" class="inputs">
+                <mat-label>Ingrese el uid usuario</mat-label>
+                <!--ngModel = directiva bidireccional  utlizada para formularios-->
+                <input [(ngModel)]="usuarios.uid" matInput placeholder="Placeholder" required>
+            </mat-form-field>
+        </div>
 
         <!--Nombre de usuario-->
         <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="inputs">
                 <mat-label>Ingrese nombre usuario</mat-label>
                 <!--ngModel = directiva bidireccional  utlizada para formularios-->
-                <input [(ngModel)]="data.nombre" matInput placeholder="Placeholder" required>
+                <input [(ngModel)]="usuarios.nombre" matInput placeholder="Placeholder" required>
             </mat-form-field>
         </div>
 
         <!--Apellido del usuario-->
         <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="inputs">
                 <mat-label>Ingrese el apellido del usuario</mat-label>
-                <input [(ngModel)]="" matInput placeholder="Placeholder" required>
+                <input [(ngModel)]="usuarios.apellido" matInput placeholder="Placeholder" required>
             </mat-form-field>
         </div>
 
         <!--Email del usuario-->
         <div>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="inputs">
                 <mat-label>Ingrese el Email del usuario</mat-label>
-                <input [(ngModel)]="data.email" matInput placeholder="Placeholder" required>
+                <input [(ngModel)]="usuarios.email" matInput placeholder="Placeholder" required>
             </mat-form-field>
         </div>
 
         <!--Rol del usuario-->
         <div>
-            <mat-form-field>
+            <mat-form-field class="inputs">
                 <mat-label>Seleccione un rol</mat-label>
-                <mat-select [(ngModel)]="data.rol" required>
+                <mat-select [(ngModel)]="usuarios.rol" required>
                     <mat-option value="admin">Administrador</mat-option>
                     <mat-option value="vis">Visitante</mat-option>
                 </mat-select>
@@ -40,9 +49,9 @@
 
         <!--Contraseña del usuario-->
         <div>
-            <mat-form-field>
+            <mat-form-field class="inputs">
                 <mat-label>Ingrese contraseña del usuario</mat-label>
-                <input [(ngModel)]="data.password" matInput [type]="hide ? 'password' : 'text'" #input minlength="6"
+                <input [(ngModel)]="usuarios.password" matInput [type]="hide ? 'password' : 'text'" #input minlength="6"
                     required>
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.arial-label]="'Hide password'"
                     [attr.arial-pressed]="hide">
@@ -52,7 +61,7 @@
             </mat-form-field>
         </div>
 
-        <button mat-raised-button color="primary" class="boton">enviar</button>
+        <button mat-raised-button color="primary" (click)="comparar()" class="boton">ingresar</button>
 
     </div>
 </div>

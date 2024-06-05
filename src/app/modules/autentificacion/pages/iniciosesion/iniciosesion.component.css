@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+}
+.material-icons{
+    font-size: 120px;
+}
+.inputs{
+    width: 400px;
+}
+.boton{
+    width: 150px;
+    height: 40px;
+}
