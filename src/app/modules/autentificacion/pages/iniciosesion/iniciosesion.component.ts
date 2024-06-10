@@ -14,6 +14,7 @@ export class IniciosesionComponent {
   hide = true;
 
   constructor() {
+    //en este arreglo subimos los datos de usuarios cargados predeterminadamente
     this.data = [
       {
         uid: "primero",
@@ -44,7 +45,7 @@ export class IniciosesionComponent {
 
   //importar la interfaz de usuario -> inicializar
   usuarios: Usuario = {
-    uid: '', // -> inicializamos con comillas simples porque es STRING
+    uid: '', // -> inicializamos con comillas simples porque es de tipo STRING
     nombre: '',
     apellido: '',
     email: '',
@@ -66,6 +67,12 @@ export class IniciosesionComponent {
 
     /*for(let i=0; i<=this.data.length; i++){
       if(typeof this.data === (credenciales.uid && credenciales.nombre && credenciales.apellido && credenciales.email && credenciales.rol && credenciales.password)){
+    //creo un for para recorrer el arreglo con los usuarios subidos
+    for (let i=0; i<this.data.length; i++){
+      //creo const guardado para guardar cada posicion del arreglo
+      const guardado =this.data[i]
+      //creo un if para comparar propiedad por propiedad del objeto que esta en guardado y del objeto que esta en credenciales
+      if(guardado.uid === credenciales.uid && guardado.nombre === credenciales.nombre && guardado.apellido === credenciales.apellido && guardado.email === credenciales.email && guardado.rol === credenciales.rol && guardado.password === credenciales.password){
         alert("ingresaste")
         break
       }
@@ -78,7 +85,9 @@ export class IniciosesionComponent {
 
 
     for (let i = 0; i <= this.data.length; i++) {
-      if (this.data.length !== (credenciales.uid && credenciales.nombre && credenciales.apellido && credenciales.email && credenciales.rol && credenciales.password)) {
+       //creo const guardado para guardar cada posicion del arreglo
+       const guardado =this.data[i]
+      if (guardado.uid === credenciales.uid && guardado.nombre === credenciales.nombre && guardado.apellido === credenciales.apellido && guardado.email === credenciales.email && guardado.rol === credenciales.rol && guardado.password === credenciales.password) {
         alert("ingresaste")
         break
       }
@@ -87,5 +96,21 @@ export class IniciosesionComponent {
         break
       }
     };
+    this.limpiarinputs()
   }
+  limpiarinputs() {
+    const inputs = {
+      uid: this.usuarios.uid = '',
+      nombre: this.usuarios.nombre = '',
+      apellido: this.usuarios.apellido = '',
+      email: this.usuarios.email = '',
+      rol: this.usuarios.rol = '',
+      password: this.usuarios.password = '',
+    }
+  }
+
 }
+
+
+
+
