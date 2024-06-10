@@ -6,3 +6,5 @@ export interface Usuario {
     rol: string;
     password: string;
 }
+
+
