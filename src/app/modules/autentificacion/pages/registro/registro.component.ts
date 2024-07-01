@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-
+import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
+//importamos paqueteria de encriptacion
+import * as CryptoJS from 'crypto-js'; 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -27,7 +29,7 @@ export class RegistroComponent {
 
   //################################################################################ fin importaciones
 
-  constructor(public servicioauth: AuthService,public serviciorutas:Router){}
+  constructor(public servicioauth: AuthService,public serviciorutas:Router, public servicioFirestore: FirestoreService){}
 
   //FUNCION PARA EL REGISTRO DE NUEVOS USUARIOS
   async registrar(){
@@ -58,6 +60,17 @@ export class RegistroComponent {
       alert("hubo un problema al registrarse \n"+error)
     })
 
+    const uid = await this.servicioauth.ObtenerUid();
+
+    this.usuarios.uid = uid;
+
+    //SHA256 es un algoritmo de hash seguro que toma un entrada, en este caso la contraseña
+    //y produce una cadena de caracteres HEXADECIMAL que va a representar a su hash
+    //toString: convierte el resultado en la casdena de caracteres legibles
+    
+    this.usuarios.password=CryptoJS.SHA256(this.usuarios.password).toString();
+
+    this.guardarusuario();
     //envamos la nueva info como un nuevo objeto a la coleccion de usuarios
     //this.coleccionUsuarios.push(credenciales)
 
@@ -70,6 +83,16 @@ export class RegistroComponent {
     //mostramos credenciales por consola
     console.log(credenciales)
     console.log(this.coleccionUsuarios)
+  }
+
+  async guardarusuario(){
+    this.servicioFirestore.agregarusuario(this.usuarios, this.usuarios.uid)
+    .then(res => {
+      console.log(this.usuarios);
+    })
+    .catch(err =>{
+      console.log('error =>', err)
+    })
   }
 
   //creamos esta funcion para que una vez subidos los datos los inputs se limpien

@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { Usuario } from 'src/app/models/usuario';
+import { AuthService } from '../../services/auth.service';
+import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
+import { Router } from '@angular/router';
+
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-iniciosesion',
@@ -8,10 +13,9 @@ import { Usuario } from 'src/app/models/usuario';
 })
 export class IniciosesionComponent {
 
-
-  public data: Usuario[];
-
   hide = true;
+
+  /*public data: Usuario[];
 
   constructor() {
     //en este arreglo subimos los datos de usuarios cargados predeterminadamente
@@ -41,7 +45,13 @@ export class IniciosesionComponent {
         password: "pepe222",
       },
     ]
-  }
+  }*/
+
+  constructor(
+    public servicioAuth: AuthService,
+    public servicioFirestore: FirestoreService,
+    public servicioRutas: Router,
+  ) { }
 
   //importar la interfaz de usuario -> inicializar
   usuarios: Usuario = {
@@ -54,7 +64,8 @@ export class IniciosesionComponent {
   }
 
   //FUNCION PARA EL REGISTRO DE NUEVOS USUARIOS
-  comparar() {
+  async comparar() {
+    /*
     //constante credenciales va a resguardar la informacion que ingrese el usuario
     const credenciales = {
       uid: this.usuarios.uid,
@@ -65,7 +76,7 @@ export class IniciosesionComponent {
       password: this.usuarios.password
     }
 
-    /*for(let i=0; i<=this.data.length; i++){
+    for(let i=0; i<=this.data.length; i++){
       if(typeof this.data === (credenciales.uid && credenciales.nombre && credenciales.apellido && credenciales.email && credenciales.rol && credenciales.password)){
     //creo un for para recorrer el arreglo con los usuarios subidos
     for (let i=0; i<this.data.length; i++){
@@ -81,7 +92,7 @@ export class IniciosesionComponent {
         break
       }
     };    
-    }*/
+    }
 
 
     for (let i = 0; i <= this.data.length; i++) {
@@ -95,8 +106,52 @@ export class IniciosesionComponent {
         alert("no ingresaste")
         break
       }
-    };
-    this.limpiarinputs()
+    };*/
+
+    const credenciales = {
+      email: this.usuarios.email,
+      password: this.usuarios.password,
+    }
+
+    try {
+      const usuarioBD = await this.servicioAuth.obtenerusuario(credenciales.email);
+
+      if (!usuarioBD || usuarioBD.empty) {
+        alert("correo electronico no esta registrado");
+        this.limpiarinputs();
+        return;
+      }
+
+      const usuarioDOC = usuarioBD.docs[0];
+
+      const usuarioData = usuarioDOC.data() as Usuario;
+
+      const hashedPassword = CryptoJS.SHA256(credenciales.password).toString();
+
+      if (hashedPassword !== usuarioData.password) {
+        alert("contraseña incorrecta")
+
+        this.usuarios.password = '';
+        return;
+      }
+
+      const res = await this.servicioAuth.iniciarsesion(credenciales.email, credenciales.password)
+        .then(res => {
+          alert('se pudo ingresar con exito');
+
+          this.servicioRutas.navigate(['/inicio']);
+        })
+        .catch(err => {
+          -alert('hubo un problema al iniciar sesion' + err);
+
+          this.limpiarinputs()
+        })
+    } catch(error){
+      this.limpiarinputs();
+    }
+
+    
+    
   }
   limpiarinputs() {
     const inputs = {

@@ -1,58 +1,12 @@
 <div class="container">
     <div class="row">
         <i class="material-icons">person</i>
-
-        <!--uid de usuario-->
-        <div >
-            <mat-form-field appearance="fill" class="inputs">
-                <mat-label>Ingrese el uid usuario</mat-label>
-                <!--ngModel = directiva bidireccional  utlizada para formularios-->
-                <input [(ngModel)]="usuarios.uid" matInput placeholder="Placeholder" required>
-            </mat-form-field>
-        </div>
-
-        <!--uid de usuario-->
-        <div >
-            <mat-form-field appearance="fill" >
-                <mat-label>Ingrese su uid usuario</mat-label>
-                <!--ngModel = directiva bidireccional  utlizada para formularios-->
-                <input  [(ngModel)]="usuarios.uid" matInput placeholder="Placeholder" required>
-            </mat-form-field>
-        </div>
-
-        <!--Nombre de usuario-->
-        <div>
-            <mat-form-field appearance="fill" class="inputs">
-                <mat-label>Ingrese nombre usuario</mat-label>
-                <!--ngModel = directiva bidireccional  utlizada para formularios-->
-                <input [(ngModel)]="usuarios.nombre" matInput placeholder="Placeholder" required>
-            </mat-form-field>
-        </div>
-
-        <!--Apellido del usuario-->
-        <div>
-            <mat-form-field appearance="fill" class="inputs">
-                <mat-label>Ingrese el apellido del usuario</mat-label>
-                <input [(ngModel)]="usuarios.apellido" matInput placeholder="Placeholder" required>
-            </mat-form-field>
-        </div>
-
+        
         <!--Email del usuario-->
         <div>
             <mat-form-field appearance="fill" class="inputs">
                 <mat-label>Ingrese el Email del usuario</mat-label>
                 <input [(ngModel)]="usuarios.email" matInput placeholder="Placeholder" required>
-            </mat-form-field>
-        </div>
-
-        <!--Rol del usuario-->
-        <div>
-            <mat-form-field class="inputs">
-                <mat-label>Seleccione un rol</mat-label>
-                <mat-select [(ngModel)]="usuarios.rol" required>
-                    <mat-option value="admin">Administrador</mat-option>
-                    <mat-option value="vis">Visitante</mat-option>
-                </mat-select>
             </mat-form-field>
         </div>
 

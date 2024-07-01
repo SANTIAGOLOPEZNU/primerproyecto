@@ -16,4 +16,28 @@ export class FirestoreService {
     this.usuariosCollection= this.database.collection<Usuario>('usuarios');
 
   }
+
+  agregarusuario(usuario: Usuario, id: string){
+    /*creamos una nueva promesa junto los metodos 
+    RESOLVE: promesa resuelta -> funciona correctamente
+    REJECT: promesa rechazada -> ocurrio una falla
+    */
+    return new Promise(async (resolve, reject) => {
+      //el bloque try encapsula la logica resuelta
+      try{
+        usuario.uid = id;
+
+        /*const resultado = coleccion de usuarios, envia como numero de documento el uid
+        y setea la informacion que ingresamos en el formulario de registro
+        */
+        const resultado = await this.usuariosCollection.doc(id).set(usuario);
+
+        resolve (resultado)
+        //bloque catch encapsula la logica rechazada
+      } catch(error){
+        //captura una falla y la vuelve un error
+        reject (error);
+      }
+    })
+  }
 }
