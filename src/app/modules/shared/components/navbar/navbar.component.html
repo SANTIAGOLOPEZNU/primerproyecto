@@ -25,11 +25,12 @@
 
     <span class="example-spacer"></span>
 
-    <!--inicio de sesion  el registro de un nuevo usuario-->
+    <!--menu desplegable para manejar todo el acceso de los usuairos en la pagina-->
     <button mat-button [matMenuTriggerFor]="usuario"><mat-icon>person</mat-icon></button>
     <mat-menu #usuario="matMenu">
-        <button mat-menu-item routerLink="/registro">registrarse</button>
-        <button mat-menu-item routerLink="/inicio-sesion">iniciar sesion</button>
+        <button mat-menu-item (click)="ingresar()" *ngIf="logueado" routerLink="/registro">registrarse</button>
+        <button mat-menu-item (click)="ingresar()" *ngIf="logueado" routerLink="/inicio-sesion">iniciar sesion</button>
+        <button mat-menu-item (click)="cerrar()" *ngIf="deslogueado">cerrar sesion</button>
     </mat-menu>
 
     <!--botones con iconos-->

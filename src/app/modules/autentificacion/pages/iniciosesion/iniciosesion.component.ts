@@ -122,12 +122,17 @@ export class IniciosesionComponent {
         return;
       }
 
+      //vincula el primer documento de la coleccion "usuarios " que se obtenia de la BD 
       const usuarioDOC = usuarioBD.docs[0];
 
+      /*extrae los datos del documento en fomra de objeto  y se especifica que va a ser del tipo usuario
+    (se refiere a la interfaz usuario de nuestros modelos)*/ 
       const usuarioData = usuarioDOC.data() as Usuario;
 
+      //encripta la contraseña que el usuario envia mediante iniciar sesion
       const hashedPassword = CryptoJS.SHA256(credenciales.password).toString();
 
+      /*condicional que compara la contraseña que acabamos de encriptar  */
       if (hashedPassword !== usuarioData.password) {
         alert("contraseña incorrecta")
 

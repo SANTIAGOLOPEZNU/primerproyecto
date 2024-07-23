@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { AuthService } from 'src/app/modules/autentificacion/services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,4 +10,25 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  logueado = true; //booleana paa manejo de registro y del inicio de sesion
+  deslogueado = false; //booleana para manejo de cierre de sesion
+
+  constructor(public servicioAuth: AuthService, public servicioRutas: Router) {}
+
+  //funcion ingresar va a invertir los valores 
+  ingresar(){
+    this.logueado=false;
+    this.deslogueado=true;
+  }
+
+  //funcion cerrar devuelve los valores originales
+  cerrar(){
+    this.deslogueado=false;
+    this.logueado=true;
+
+    //llamamos al metodo cerrarsesion para limpiar el token 
+    this.servicioAuth.cerrarsesion();
+    //redirigimos a la raiz del sitio web
+    this.servicioRutas.navigate(['/'])
+  }
 }
