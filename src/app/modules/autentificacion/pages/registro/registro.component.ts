@@ -4,7 +4,9 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FirestoreService } from 'src/app/modules/shared/services/firestore.service';
 //importamos paqueteria de encriptacion
-import * as CryptoJS from 'crypto-js'; 
+import * as CryptoJS from 'crypto-js';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -12,7 +14,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class RegistroComponent {
   //input de la contraseña para ver los caracteres o no
-  hide=true;
+  hide = true;
 
   //importar la interfaz de usuario -> inicializar
   usuarios: Usuario = {
@@ -29,10 +31,10 @@ export class RegistroComponent {
 
   //################################################################################ fin importaciones
 
-  constructor(public servicioauth: AuthService,public serviciorutas:Router, public servicioFirestore: FirestoreService){}
+  constructor(public servicioauth: AuthService, public serviciorutas: Router, public servicioFirestore: FirestoreService) { }
 
   //FUNCION PARA EL REGISTRO DE NUEVOS USUARIOS
-  async registrar(){
+  async registrar() {
     //constante credenciales va a resguardar la informacion que ingrese el usuario
     /*
     const credenciales = {
@@ -45,20 +47,28 @@ export class RegistroComponent {
     }
     */
 
-    const credenciales={
+    const credenciales = {
       email: this.usuarios.email,
       password: this.usuarios.password
     }
 
-    const respuesta = await this.servicioauth.registrar(credenciales.email,credenciales.password)
-    .then(respuesta=>{
-      alert("se pudo registrar con exito")
+    const respuesta = await this.servicioauth.registrar(credenciales.email, credenciales.password)
+      .then(respuesta => {
+        Swal.fire({
+          title: "Good job!",
+          text: "You clicked the button!",
+          icon: "success"
+        });
 
-      this.serviciorutas.navigate(['/inicio'])
-    })
-    .catch(error =>{
-      alert("hubo un problema al registrarse \n"+error)
-    })
+        this.serviciorutas.navigate(['/inicio'])
+      })
+      .catch(error => {
+        Swal.fire({
+          title: "ocurrio un error",
+          text: "hubo un error al registrar un nuevo usuario :("+error,
+          icon: "error"
+        });
+      })
 
     const uid = await this.servicioauth.ObtenerUid();
 
@@ -67,15 +77,15 @@ export class RegistroComponent {
     //SHA256 es un algoritmo de hash seguro que toma un entrada, en este caso la contraseña
     //y produce una cadena de caracteres HEXADECIMAL que va a representar a su hash
     //toString: convierte el resultado en la casdena de caracteres legibles
-    
-    this.usuarios.password=CryptoJS.SHA256(this.usuarios.password).toString();
+
+    this.usuarios.password = CryptoJS.SHA256(this.usuarios.password).toString();
 
     this.guardarusuario();
     //envamos la nueva info como un nuevo objeto a la coleccion de usuarios
     //this.coleccionUsuarios.push(credenciales)
 
     //notificamos con exito al usuario registrado
-    alert("te registraste con exito")
+
 
     //llamamos a la funcion para que limpie los inputs
     this.limpiarinputs()
@@ -85,18 +95,18 @@ export class RegistroComponent {
     console.log(this.coleccionUsuarios)
   }
 
-  async guardarusuario(){
+  async guardarusuario() {
     this.servicioFirestore.agregarusuario(this.usuarios, this.usuarios.uid)
-    .then(res => {
-      console.log(this.usuarios);
-    })
-    .catch(err =>{
-      console.log('error =>', err)
-    })
+      .then(res => {
+        console.log(this.usuarios);
+      })
+      .catch(err => {
+        console.log('error =>', err)
+      })
   }
 
   //creamos esta funcion para que una vez subidos los datos los inputs se limpien
-  limpiarinputs(){
+  limpiarinputs() {
     const inputs = {
       uid: this.usuarios.uid = '',
       nombre: this.usuarios.nombre = '',
