@@ -35,3 +35,63 @@
         </tr>
     </tbody>
 </table>
+
+<!-- BOTON DE AGREGAR NUEVOS PRODCUTOS -->
+<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#agregarproducto">
+    agregar nuevo productos
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="agregarproducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--TITULO DEL MODAL-->
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ingrese un nuevo producto:</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!--CUERPO DEL MODAL-->
+            <div [formGroup]="producto" class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">ingrese el nombre del producto</label>
+                    <input type="text" class="form-control" formControlName="nombre" placeholder="ej: medias de brawl start">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">ingrese el precio del producto</label>
+                    <input type="number" class="form-control" formControlName="precio" placeholder="ej: medias de brawl start">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">ingrese la descripcion del producto</label>
+                    <input type="text" class="form-control" formControlName="descripcion" placeholder="ej: medias de brawl start">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">ingrese la categoria del producto</label>
+                    <select class="form-control" formControlName="categoria" class="form-select">
+                        <option selected>elija una opcion</option>
+                        <option value="producto"></option>
+                        <option value="rareza"></option>
+                        <option value="tienda"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">ingrese la imagen del producto</label>
+                    <input type="text" class="form-control" formControlName="imagen" placeholder="ej: medias de brawl start">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">ingrese el alt del producto</label>
+                    <input type="text" class="form-control" formControlName="alt" placeholder="ej: medias de brawl start">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" (click)="agregarproducto()" data-bs-dismiss="modal">Guardar</button>
+                <button type="button" class="btn btn-outline-secundary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

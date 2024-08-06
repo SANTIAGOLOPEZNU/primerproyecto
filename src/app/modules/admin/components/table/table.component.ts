@@ -16,17 +16,45 @@ export class TableComponent {
   /*
   *atributos alfanumericos (string) se inicializan con comillas simples 
   *atributos numericos (number) se inicializan en 0
-  * */ 
-  prducto= new FormGroup({
+  * */
+  producto = new FormGroup({
     nombre: new FormControl('', Validators.required),
-    precio: new FormControl(0, Validators.required) ,
-    descripcion: new FormControl('',Validators.required),
+    precio: new FormControl(0, Validators.required),
+    descripcion: new FormControl('', Validators.required),
     categoria: new FormControl('', Validators.required),
-    imagen: new FormControl ('', Validators.required),
-    alt: new FormControl ('',Validators.required),
+    imagen: new FormControl('', Validators.required),
+    alt: new FormControl('', Validators.required),
   })
 
-  constructor(public servicioCrud: CrudService){
+  constructor(public servicioCrud: CrudService) { }
+
+  ngOnInit(): void {
+    this.servicioCrud.obtenerProducto().subscribe(producto => {
+      this.collecionProductos = producto;
+    })
+  };
+
+  async agregarproducto() {
+    if (this.producto.valid) {
+      let nuevoproducto: Producto = {
+        idProducto: '',
+        nombre: this.producto.value.nombre!,
+        precio: this.producto.value.precio!,
+        descripcion: this.producto.value.descripcion!,
+        categoria: this.producto.value.categoria!,
+        imagen: this.producto.value.imagen!,
+        alt: this.producto.value.alt!,
+      }
+
+      await this.servicioCrud.crearProducto(nuevoproducto)
+        .then(producto=> {
+          alert("agrego un nuevo producto con exito");
+        })
+        .catch(error => {
+          alert("ocurrio un error al cargar un producto");
+        })
+    }
+
 
   }
 }
