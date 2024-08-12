@@ -12,6 +12,10 @@ export class TableComponent {
   //creamos collecion local de productos -> la definimos como array
   collecionProductos: Producto[] = [];
 
+  productoSeleccionado!: Producto; // ! <- tomar valores vacios 
+
+  modalVisibleProducto: boolean = false;
+
   //definimos formulario para los productos 
   /*
   *atributos alfanumericos (string) se inicializan con comillas simples 
@@ -56,5 +60,22 @@ export class TableComponent {
     }
 
 
+  }
+
+  //funcion vinculada al modal y al boton 
+  mostrarBorrar(productoSeleccionado: Producto){
+    this.modalVisibleProducto = true;
+
+    this.productoSeleccionado = productoSeleccionado
+  }
+
+  borrarProducto(){
+    this.servicioCrud.eliminarProducto(this.productoSeleccionado.idProducto)
+    .then(respuesta => {
+      alert("se ha podido eliminar con exito");
+    })
+    .catch(error=>{
+      alert("ha ocurrido un error al eliminar u producto \n"+error);
+    })
   }
 }

@@ -14,7 +14,7 @@
             <th scope="row">1</th>
 
             <td>
-                <img src="{{colec.imagen}}" alt="{{colec.alt}}">
+                <img style="width: 200px; height: 200px;" src="{{colec.imagen}}" alt="{{colec.alt}}">
             </td>
             <td>{{colec.nombre}}</td>
             <td>{{colec.precio}}</td>
@@ -28,7 +28,8 @@
                 </button>
             </td>
             <td>
-                <button id="btn-delete" title="Eliminar" type="button" class="btn btn-outline-danger">
+                <button id="btn-delete" title="Eliminar" type="button" class="btn btn-outline-danger"
+                    data-bs-toggle="modal" data-bs-target="#eliminarProducto" (click)="mostrarBorrar(colec)">
                     <mat-icon>delete</mat-icon>
                 </button>
             </td>
@@ -54,17 +55,20 @@
             <div [formGroup]="producto" class="modal-body">
                 <div class="mb-3">
                     <label class="form-label">ingrese el nombre del producto</label>
-                    <input type="text" class="form-control" formControlName="nombre" placeholder="ej: medias de brawl start">
+                    <input type="text" class="form-control" formControlName="nombre"
+                        placeholder="ej: medias de brawl start">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">ingrese el precio del producto</label>
-                    <input type="number" class="form-control" formControlName="precio" placeholder="ej: medias de brawl start">
+                    <input type="number" class="form-control" formControlName="precio"
+                        placeholder="ej: medias de brawl start">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">ingrese la descripcion del producto</label>
-                    <input type="text" class="form-control" formControlName="descripcion" placeholder="ej: medias de brawl start">
+                    <input type="text" class="form-control" formControlName="descripcion"
+                        placeholder="ej: medias de brawl start">
                 </div>
 
                 <div class="mb-3">
@@ -79,18 +83,40 @@
 
                 <div class="mb-3">
                     <label class="form-label">ingrese la imagen del producto</label>
-                    <input type="text" class="form-control" formControlName="imagen" placeholder="ej: medias de brawl start">
+                    <input type="text" class="form-control" formControlName="imagen"
+                        placeholder="ej: medias de brawl start">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">ingrese el alt del producto</label>
-                    <input type="text" class="form-control" formControlName="alt" placeholder="ej: medias de brawl start">
+                    <input type="text" class="form-control" formControlName="alt"
+                        placeholder="ej: medias de brawl start">
                 </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success" (click)="agregarproducto()" data-bs-dismiss="modal">Guardar</button>
+                <button type="button" class="btn btn-outline-success" (click)="agregarproducto()"
+                    data-bs-dismiss="modal">Guardar</button>
                 <button type="button" class="btn btn-outline-secundary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para eliminar producto-->
+<div class="modal fade" id="eliminarProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
